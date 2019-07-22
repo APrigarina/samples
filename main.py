@@ -253,5 +253,5 @@ ax.set_xticklabels(categories, rotation=90)
 
 plt.gcf().subplots_adjust(bottom=0.25)
 fig.set_size_inches(12, 4)
-plt.savefig("detection_categories.pdf", format='pdf')
+plt.savefig("detection_f_score_by_categories.pdf", format='pdf')
 plt.close()

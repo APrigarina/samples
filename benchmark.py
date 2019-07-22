@@ -18,7 +18,8 @@ options, arguments = p.parse_args()
 dir_images = options.input
 dir_results = options.output
 
-os.mkdir(dir_results)
+if not os.path.exists(dir_results):
+    os.mkdir(dir_results)
 
 def detect_markers():
 
@@ -97,12 +98,38 @@ def detect_markers():
     print("detected: {}%".format(np.round((total_detected/total) * 100, 2)))
     print("decoded: {}%".format(np.round((total_decoded/total_detected) * 100, 2)))
 
-    print("\nCount of detected QR codes by category")
+    #Процент детектированных изображений в каждой категории (относительно количества изображений, представленных в каждой категории)
+    print("\nPercent of detected QR codes by category")
     for k, v in count_detected.items():
         print(k,v)
 
-    print("\nCount of decoded QR codes by category")
+    #Процент декодированных изображений среди всех детектированных изображений в каждой категории
+    print("\nPercent of decoded QR codes by category")
     for k, v in count_decoded.items():
         print(k,v)
 
-detect_markers()
+    return count_detected
+
+detection_results = detect_markers()
+
+import matplotlib.pyplot as plt
+import numpy as np
+categories = sorted(list(detection_results.keys()))
+categories = [x for x in categories]
+scores_list = [detection_results[x] for x in categories]
+
+indexes = np.arange(len(categories))
+# fig, ax = plt.subplots()
+
+plt.bar(indexes,scores_list)
+
+# plt.set_ylim([0.0,1.15])
+plt.ylabel("%")
+plt.title('Detection Percent by Categories')
+#plt.xticks(indexes)
+plt.xticks(indexes, categories, rotation=90)
+
+#plt.gcf().subplots_adjust(bottom=0.25)
+#fig.set_size_inches(12, 4)
+plt.savefig("detection_percent_by_categories.pdf", format='pdf')
+plt.close()
