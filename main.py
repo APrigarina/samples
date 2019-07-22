@@ -14,7 +14,7 @@ from shapely.geometry import Polygon
 # Handle command line options
 p = optparse.OptionParser()
 p.add_option('--Images', '-i', default="qrcodes/detection",help="Location of directory with input images")
-p.add_option('--Results', '-r', default="results",help="Location of root results directory")
+p.add_option('--Results', '-r', default="detection_results",help="Location of root results directory")
 
 def parse_truth( file_path ):
     locations = []

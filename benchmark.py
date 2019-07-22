@@ -11,12 +11,14 @@ from os.path import join
 
 p = optparse.OptionParser()
 p.add_option('--input', '-i', default="qrcodes/detection",help="Location of directory with input images")
-p.add_option('--output', '-o', default="results",help="Location of output directory results are saved to")
+p.add_option('--output', '-o', default="detection_results",help="Location of output directory results are saved to")
 
 options, arguments = p.parse_args()
 
 dir_images = options.input
 dir_results = options.output
+
+os.mkdir(dir_results)
 
 def detect_markers():
 
