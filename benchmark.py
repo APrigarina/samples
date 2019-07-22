@@ -1,3 +1,5 @@
+# Get bounding box for every image in qrcodes-dataset and write into input_files
+# Get percent od detected and decoded images 
 import cv2
 import numpy as np
 import sys
@@ -119,17 +121,10 @@ categories = [x for x in categories]
 scores_list = [detection_results[x] for x in categories]
 
 indexes = np.arange(len(categories))
-# fig, ax = plt.subplots()
 
 plt.bar(indexes,scores_list)
-
-# plt.set_ylim([0.0,1.15])
 plt.ylabel("%")
 plt.title('Detection Percent by Categories')
-#plt.xticks(indexes)
 plt.xticks(indexes, categories, rotation=90)
-
-#plt.gcf().subplots_adjust(bottom=0.25)
-#fig.set_size_inches(12, 4)
 plt.savefig("detection_percent_by_categories.pdf", format='pdf')
 plt.close()
